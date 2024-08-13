@@ -3,18 +3,29 @@
     public class Individuo
     {
         public int[] Cromossomo { get; set; }
-        public double Fitness { get; set; }
+        public decimal Fitness { get; set; }
 
         public Individuo(int qtdGenes, int[] genes)
         {
             Cromossomo = ReorganizarIndividuo(genes);
+            Fitness = CalcularFitness();
         }
 
-        private void CalcularFitness()
-        {
+        private decimal CalcularFitness()
+                        {
             //Somatório das distâncias considerando a ordem das cidades no indivíduo
             //Distâncias definidas no arquivo brazil58.xml
-            //TODO: Verificar a melhor maneira de transformar o xml em um objeto para ter acesso as propriedades de distância
+            decimal somatorioFitness = 0;
+            for (int i = 0; i < Cromossomo.Length; i++)
+            {           
+                var index = i + 1;
+                if (index == Cromossomo.Length)
+                    index = 0;
+
+                somatorioFitness += XMLHelper.ObterCustoEntreCidades(Cromossomo[i], Cromossomo[index]);
+            }
+
+            return somatorioFitness;
         }
 
         private int[] ReorganizarIndividuo(int[] genesOriginais)

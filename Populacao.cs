@@ -47,12 +47,12 @@
         {
             foreach (var individuo in Individuos)
             {
-                Console.Write("{");
+                Console.Write("(");
                 foreach (var gene in individuo.Cromossomo)
                 {
                     Console.Write($" {gene}");
                 }
-                Console.WriteLine(" }");
+                Console.WriteLine($" ) : { individuo.Fitness.ToString("F2") }");
             }
         }
     }
