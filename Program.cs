@@ -1,11 +1,36 @@
-﻿using CaixeiroViajante;
+﻿namespace CaixeiroViajante
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                int qtdCidades = XMLHelper.ObterNumeroDeCidades();
+                int qtdIndividuos = 10;
+                // TODO: Definir número máximo de gerações
+                // TODO: Definir fitness de parada
 
-var qtdGenes = 6;
-var qtdPop = 10;
+                var algoritmo = new Algoritmo(qtdIndividuos, qtdCidades);
+                algoritmo.Populacao.ImprimirPopulacao();
 
-var populacao = new Populacao(qtdPop, qtdGenes);
+                // TODO: Validar se melhor indivíduo se encaixa no fitness de parada
+                var melhorIndividuo = algoritmo.ObterMelhorIndividuo();
 
-populacao.ImprimirPopulacao();
+                // Seleção 
+                var selecionados = algoritmo.SelecionarIndividuos();
 
+                // TODO: Cruzamento
 
+                // TODO: Mutação
 
+                // TODO: Atualizar população
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro: {ex.Message}");
+            }
+        }
+    }
+}

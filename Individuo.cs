@@ -12,12 +12,12 @@
         }
 
         private decimal CalcularFitness()
-                        {
+        {
             //Somatório das distâncias considerando a ordem das cidades no indivíduo
             //Distâncias definidas no arquivo brazil58.xml
             decimal somatorioFitness = 0;
             for (int i = 0; i < Cromossomo.Length; i++)
-            {           
+            {
                 var index = i + 1;
                 if (index == Cromossomo.Length)
                     index = 0;
