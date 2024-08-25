@@ -8,24 +8,27 @@
             {
                 int qtdCidades = XMLHelper.ObterNumeroDeCidades();
                 int qtdIndividuos = 10;
-                // TODO: Definir número máximo de gerações
-                // TODO: Definir fitness de parada
+                int maxGeracoes = 1000;
 
-                var algoritmo = new Algoritmo(qtdIndividuos, qtdCidades);
-                algoritmo.Populacao.ImprimirPopulacao();
+                for(int i = 0; i < maxGeracoes; i++)
+                {
+                    var algoritmo = new Algoritmo(qtdIndividuos, qtdCidades);
+                    algoritmo.Populacao.ImprimirPopulacao();
 
-                // TODO: Validar se melhor indivíduo se encaixa no fitness de parada
-                var melhorIndividuo = algoritmo.ObterMelhorIndividuo();
+                    var melhorIndividuo = algoritmo.ObterMelhorIndividuo();
 
-                // Seleção 
-                var selecionados = algoritmo.SelecionarIndividuos();
+                    // Seleção 
+                    var selecionados = algoritmo.SelecionarIndividuos();
 
-                // TODO: Cruzamento
+                    // Cruzamento
+                    var cruzados = algoritmo.CruzarIndividuos(selecionados);
 
-                // TODO: Mutação
+                    // TODO: Mutação
+                    algoritmo.MutarIndividuos(cruzados);
 
-                // TODO: Atualizar população
-
+                    // TODO: Atualizar população
+                    algoritmo.Populacao = algoritmo.AtualizarPopulacao(algoritmo.Populacao, cruzados);
+                }
             }
             catch (Exception ex)
             {
