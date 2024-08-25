@@ -4,22 +4,29 @@ namespace CaixeiroViajante
 {
     public static class XMLHelper
     {
-        private static string _CaminhoXml = "C:\\Users\\mlferreira\\Documents\\IFPE\\CaixeiroViajante\\xml\\brazil58.xml";
+        private static readonly string _CaminhoXml = "xml\\brazil58.xml";
+
+        private static XElement DocumentoXml
+        {
+            get
+            {
+                return XElement.Load(_CaminhoXml);
+            }
+        }
 
         private static IList<XElement> ObterVertices()
-        {
-            XElement doc = XElement.Load(_CaminhoXml);
+            => DocumentoXml.Descendants("vertex").ToList();
 
-            return doc.Descendants("vertex").ToList();
-        }
+        public static int ObterNumeroDeCidades()
+            => DocumentoXml.Descendants("vertex").Count();
 
         public static decimal ObterCustoEntreCidades(int codCidadeOrigem, int codCidadeDestino)
         {
             var vertices = ObterVertices();
 
-            var custo = vertices[codCidadeOrigem].Descendants("edge")
-                .FirstOrDefault(x => x.Value == codCidadeDestino.ToString())
-                .FirstAttribute
+            var custo = vertices[codCidadeOrigem].Descendants("edge")?
+                .FirstOrDefault(x => x.Value == codCidadeDestino.ToString())?
+                .FirstAttribute?
                 .Value;
 
             return decimal.Parse(custo, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture);

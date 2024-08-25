@@ -1,11 +1,21 @@
-﻿using CaixeiroViajante;
+﻿namespace CaixeiroViajante
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                int qtdCidades = XMLHelper.ObterNumeroDeCidades();
+                var qtdGenes = 6;
 
-var qtdGenes = 6;
-var qtdPop = 10;
-
-var populacao = new Populacao(qtdPop, qtdGenes);
-
-populacao.ImprimirPopulacao();
-
-
-
+                var populacao = new Populacao(qtdCidades, qtdGenes);
+                populacao.ImprimirPopulacao();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro: {ex.Message}");
+            }
+        }
+    }
+}
