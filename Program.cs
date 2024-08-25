@@ -7,10 +7,10 @@
             try
             {
                 int qtdCidades = XMLHelper.ObterNumeroDeCidades();
-                var qtdGenes = 6;
+                int qtdIndividuos = 6;
 
-                var populacao = new Populacao(qtdCidades, qtdGenes);
-                populacao.ImprimirPopulacao();
+                var algoritmo = new Algoritmo(qtdIndividuos, qtdCidades);
+                algoritmo.Populacao.ImprimirPopulacao();
             }
             catch (Exception ex)
             {

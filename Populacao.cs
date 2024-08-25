@@ -17,21 +17,18 @@
 
         private int[] GerarGenes()
         {
-            int valor;
-            var genes = new int[QtdGenes];
             var random = new Random();
-            for (int i = 0; i < QtdGenes; i++)
+            var genes = Enumerable.Range(0, QtdGenes).ToList();
+
+            for (int i = genes.Count - 1; i > 0; i--)
             {
-                valor = random.Next(0, 58);
-
-                while (genes.Any(x => x == valor))
-                    valor = random.Next(0, 58);
-
-                genes[i] = valor;
+                int j = random.Next(0, i + 1);
+                (genes[j], genes[i]) = (genes[i], genes[j]);
             }
 
-            return genes;
+            return [.. genes];
         }
+
 
         private IEnumerable<Individuo> GerarIndividuos()
         {
@@ -48,11 +45,11 @@
             foreach (var individuo in Individuos)
             {
                 Console.Write("(");
+
                 foreach (var gene in individuo.Cromossomo)
-                {
                     Console.Write($" {gene}");
-                }
-                Console.WriteLine($" ) : { individuo.Fitness.ToString("F2") }");
+
+                Console.WriteLine($" ) : { individuo.Fitness:F2}");
             }
         }
     }
