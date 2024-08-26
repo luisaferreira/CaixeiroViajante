@@ -29,7 +29,7 @@ namespace CaixeiroViajante
                 .FirstAttribute?
                 .Value;
 
-            return decimal.Parse(custo, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture);
+            return decimal.Parse(string.IsNullOrEmpty(custo) ? "0" : custo, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture);
         }
     }
 }

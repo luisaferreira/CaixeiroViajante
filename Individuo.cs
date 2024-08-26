@@ -5,9 +5,15 @@
         public int[] Cromossomo { get; set; }
         public decimal Fitness { get; set; }
 
-        public Individuo(int qtdGenes, int[] genes)
+        public Individuo(int qtdGenes)
         {
-            Cromossomo = ReorganizarIndividuo(genes);
+            Cromossomo = GerarGenes(qtdGenes);
+            Fitness = CalcularFitness();
+        }
+
+        public Individuo(int[] cromossomo)
+        {
+            Cromossomo = cromossomo;
             Fitness = CalcularFitness();
         }
 
@@ -28,21 +34,18 @@
             return somatorioFitness;
         }
 
-        private int[] ReorganizarIndividuo(int[] genesOriginais)
+        private int[] GerarGenes(int qtdGenes)
         {
             var random = new Random();
-            var genes = (int[])genesOriginais.Clone();
+            var genes = Enumerable.Range(0, qtdGenes).ToList();
 
-            for (int i = genes.Length - 1; i > 0; i--)
+            for (int i = genes.Count - 1; i > 0; i--)
             {
                 int j = random.Next(0, i + 1);
-
-                int aux = genes[i];
-                genes[i] = genes[j];
-                genes[j] = aux;
+                (genes[j], genes[i]) = (genes[i], genes[j]);
             }
 
-            return genes;
+            return [.. genes];
         }
 
     }
