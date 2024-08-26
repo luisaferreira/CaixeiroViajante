@@ -4,6 +4,7 @@ namespace CaixeiroViajante
 {
     public class Populacao
     {
+        private readonly Random _random = new Random();
         public IEnumerable<Individuo> Individuos { get; set; }
         public int QtdPopulacao { get; set; }
         public int QtdGenes { get; set; }
@@ -15,7 +16,7 @@ namespace CaixeiroViajante
             Individuos = GerarIndividuos();
         }
 
-        private IEnumerable<Individuo> GerarIndividuos()
+        private List<Individuo> GerarIndividuos()
         {
             var individuos = new List<Individuo>();
 
@@ -33,7 +34,6 @@ namespace CaixeiroViajante
 
         public IEnumerable<Individuo>? CruzarIndividuos(IEnumerable<Individuo> selecionados)
         {
-            Random _random = new Random();
             var filhos = new List<Individuo>();
             var listaSelecionados = selecionados.ToList();
 
@@ -56,9 +56,8 @@ namespace CaixeiroViajante
             return filhos;
         }
 
-        public Individuo Cruzamento(Individuo pai1, Individuo pai2)
+        private Individuo Cruzamento(Individuo pai1, Individuo pai2)
         {
-            Random _random = new Random();
             var tamanho = pai1.Cromossomo.Length;
             var metadeTamanho = tamanho / 2;
             var pontoDeCorteInicial = _random.Next(0, metadeTamanho + 1);
@@ -76,12 +75,13 @@ namespace CaixeiroViajante
             for (int i = 0; i < pontoDeCorteInicial; i++)
             {
                 if (i < numerosInicio.Length)
+                {
                     if (!filho.Contains(numerosInicio[i]) && filho[i] == 0)
                     {
                         filho[i] = numerosInicio[i];
                     }
+                }
             }
-
 
             for (int i = pontoDeCorteFinal + 1; i < tamanho; i++)
             {
@@ -96,6 +96,25 @@ namespace CaixeiroViajante
             }
 
             return new Individuo(filho);
+        }
+
+        public void MutarIndividuos(IEnumerable<Individuo> cruzados, double taxaMutacao)
+        {
+            foreach (var individuo in cruzados.ToList())
+            {
+                if (_random.NextDouble() < taxaMutacao)
+                {
+                    int i = _random.Next(0, individuo.Cromossomo.Length);
+                    int j = _random.Next(0, individuo.Cromossomo.Length);
+
+                    if (i > j)
+                        (i, j) = (j, i);
+
+                    Array.Reverse(individuo.Cromossomo, i, j - i + 1);
+
+                    individuo.Fitness = individuo.CalcularFitness();
+                }
+            }
         }
 
         public void AtualizarPopulacao(IEnumerable<Individuo> novosIndividuos)
@@ -122,6 +141,6 @@ namespace CaixeiroViajante
 
                 Console.WriteLine($" ) : {individuo.Fitness:F2}");
             }
-        }
+        }   
     }
 }
