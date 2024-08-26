@@ -12,7 +12,7 @@
         public void Executar(int maxGeracoes, int qtdIndividuosCruzamento)
         {
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < maxGeracoes; i++)
             {
                 try
                 {
@@ -24,19 +24,17 @@
 
                     //TODO: Mutação
 
-                    Populacao.ImprimirPopulacao();
 
                     Populacao.AtualizarPopulacao(cruzados);
                     Console.WriteLine();
                     Populacao.ImprimirPopulacao();
                 }
                 catch (Exception ex)
-                { Console.WriteLine($"Erro: {ex.Message}");
+                { 
+                    Console.WriteLine($"Erro: {ex.Message}");
                     Console.WriteLine($"Onde: {ex.StackTrace}");
                 }
             }
-
-
         }
 
 

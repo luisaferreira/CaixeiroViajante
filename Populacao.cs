@@ -87,11 +87,12 @@ namespace CaixeiroViajante
             {
                 var valor = i - (pontoDeCorteFinal + 1);
                 if (valor < numerosFim.Length)
+                {
                     if (!filho.Contains(numerosFim[valor]) && filho[i] == 0)
                     {
                         filho[i] = numerosFim[i - (pontoDeCorteFinal + 1)];
                     }
-
+                }
             }
 
             return new Individuo(filho);
@@ -103,11 +104,11 @@ namespace CaixeiroViajante
             populacao.AddRange(novosIndividuos);
 
             Individuos = populacao
-    .GroupBy(x => x.Fitness)
-    .Select(g => g.First()) // Seleciona o primeiro indivíduo de cada grupo com o mesmo Fitness
-    .OrderBy(x => x.Fitness)
-    .Take(QtdPopulacao)
-    .ToList();
+                .GroupBy(x => x.Fitness)
+                .Select(g => g.First())
+                .OrderBy(x => x.Fitness)
+                .Take(QtdPopulacao)
+                .ToList();
         }
 
         public void ImprimirPopulacao()
