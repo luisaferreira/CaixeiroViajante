@@ -17,7 +17,7 @@
             Fitness = CalcularFitness();
         }
 
-        private decimal CalcularFitness()
+        public decimal CalcularFitness()
         {
             //Somatório das distâncias considerando a ordem das cidades no indivíduo
             //Distâncias definidas no arquivo brazil58.xml
@@ -46,6 +46,13 @@
             }
 
             return [.. genes];
+        }
+
+        public static void ImprimirIndividuo(Individuo? individuo)
+        {
+            Console.Write($"Cromossomo: [");
+            Console.Write(string.Join(", ", individuo.Cromossomo));
+            Console.WriteLine($"] - Fitness: {individuo.Fitness:F2}");
         }
 
     }

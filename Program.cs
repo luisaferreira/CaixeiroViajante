@@ -10,10 +10,10 @@
                 int qtdIndividuos = 10;
                 int qtdIndividuosCruzamento = 6;
                 int maxGeracoes = 20;
-                
+                double taxaMutacao = 0.05;                
                 
                 var algoritmo = new AlgoritmoGenetico(qtdIndividuos, qtdCidades);
-                algoritmo.Executar(maxGeracoes, qtdIndividuosCruzamento);
+                algoritmo.Executar(maxGeracoes, qtdIndividuosCruzamento, taxaMutacao);
             }
             catch (Exception ex)
             {
